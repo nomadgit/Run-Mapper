@@ -21,6 +21,10 @@ body {
    font-weight: 300;
 }
 
+.jumbotron {
+	margin-top: -5px;
+}
+
 .navbar {
 	border-radius: 0px;
 	margin: -1px;
