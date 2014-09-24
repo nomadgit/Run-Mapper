@@ -1,3 +1,24 @@
-// Place all the styles related to the route controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#map-container {
+   height: 500px;
+   border-radius: 4px 4px;
+   border-color: #fff;
+   border-style: solid;
+   box-shadow: 2px 2px 8px #B1B1B1;
+   margin-top: 25px;
+   border-width: 7px;
+ }
+
+ #map-canvas {
+   height: 484px;
+   width: 100%;
+ }
+
+ #form-container {
+   height: 500px;
+   border-radius: 4px 4px;
+   border-color: #fff;
+   border-style: solid;
+   box-shadow: 2px 2px 8px #B1B1B1;
+   margin-top: 25px;
+   border-width: 7px;
+ }
