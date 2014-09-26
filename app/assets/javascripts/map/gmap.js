@@ -11,6 +11,10 @@ $(document).ready(ready);
 $(document).on('page:load', ready);
 
 var map;
+var elevator;
+var distance = 0;
+var dist_arr = [];
+var elev_arr = [];
 
 //Inits the map
 function initialize() {
@@ -34,8 +38,13 @@ function initialize() {
   fixInfoWindow();
   // Add a listener for the click event
   google.maps.event.addListener(map, 'click', addLatLng);
-}
 
+  // Create an ElevationService
+  elevator = new google.maps.ElevationService();
+
+  // Add a listener for the click event and call getElevation on that location
+  google.maps.event.addListener(map, 'click', getElevation);
+}
 
 /**
  * Handles click events on a map, and adds a new point to the Polyline.
@@ -45,15 +54,22 @@ function addLatLng(event) {
 
   var path = poly.getPath();
 
-  // Because path is an MVCArray, we can simply append a new coordinate
-  // and it will automatically appear.
+  var loc1 = path.getAt(path.getLength()-1);
+  var loc2 = event.latLng;
   
-  var p1 = path.getAt(path.getLength()-1);
-  var p2 = event.latLng;
-
-  //console.log(google.maps.geometry.spherical.computeDistanceBetween(p1, p2) / 1000);
-
   path.push(event.latLng);
+
+  if(loc1 && loc2) {
+    distance = distance + google.maps.geometry.spherical.computeDistanceBetween (loc1, loc2);
+  }
+
+
+  var dist_dec2 = (distance/1000).toFixed(2);
+  $("#distance").val(dist_dec2 + " km");
+
+  dist_arr.push(dist_dec2);  
+  var dist_str = dist_arr.join();
+  $("#dist_box").val(dist_str);
 
   var cross = {
     path: 'M -4,-4 4,4 M 4,-4 -4,4',
@@ -71,6 +87,41 @@ function addLatLng(event) {
 
 }
 
+function getElevation(event) {
+
+  var locations = [];
+
+  // Retrieve the clicked location and push it on the array
+  var clickedLocation = event.latLng;
+  locations.push(clickedLocation);
+
+  // Create a LocationElevationRequest object using the array's one value
+  var positionalRequest = {
+    'locations': locations
+  }
+
+  // Initiate the location request
+  elevator.getElevationForLocations(positionalRequest, function(results, status) {
+    if (status == google.maps.ElevationStatus.OK) {
+
+      // Retrieve the first result
+      if (results[0]) {
+
+        // Open an info window indicating the elevation at the clicked position
+        console.log('The elevation at this point is ' + results[0].elevation.toFixed(3) + ' meters.');
+        
+        elev_arr.push(results[0].elevation.toFixed(3));
+        var elev_str = elev_arr.join();
+        $("elev_box").val(elev_str);
+
+      } else {
+        console.log('No results found');
+      }
+    } else {
+      console.log('Elevation service failed due to: ' + status);
+    }
+  });
+}
 
 //Makes links and labels unclickable
 function fixInfoWindow() {

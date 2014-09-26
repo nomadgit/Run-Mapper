@@ -11,6 +11,22 @@
   </div>
   <div class="col-md-4">
   	<div id="form-container">
+      <form role="form">
+        <div class="form-group">
+          <label for="routeName">Route name</label>
+          <input type="text" class="form-control" id="routeName" placeholder="e.g. NUS loop">
+        </div>
+        <div class="form-group">
+          <label for="distance">Distance</label>
+          <input type="text" class="form-control" id="distance" placeholder="0 km" disabled>
+        </div>
+        <div class="form-group">
+          <input type="hidden" class="form-control" id="dist_box">
+          <input type="hidden" class="form-control" id="elev_box">
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">Add</button>
+      </form>
+      <div id="chart_div" style="width: 900px; height: 500px;"></div>
   	</div>
   </div>
 </div>
