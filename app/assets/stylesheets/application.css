@@ -21,6 +21,18 @@ body {
    font-weight: 300;
 }
 
+.profile {
+	height: 30px;
+	border: 2px solid #efefef;
+	margin-right: 10px;
+	border-radius: 2px;
+}
+
+.dropdown-toggle {
+	height: 55px;
+	margin-top: -5px;
+}
+
 .jumbotron {
 	margin-top: -5px;
 }

@@ -35,8 +35,11 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
+# For facebook login
 gem 'omniauth'
-gem 'omniauth-facebook', '1.4.0'
+gem 'omniauth-facebook'
+# To use graph api
+gem "koala"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
